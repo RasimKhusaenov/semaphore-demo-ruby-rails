@@ -39,6 +39,7 @@ group :development, :test do
   gem 'brakeman'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'bundler-audit', require: false
   gem 'capybara'
   gem 'rspec-rails'
   gem 'rubocop', require: false
