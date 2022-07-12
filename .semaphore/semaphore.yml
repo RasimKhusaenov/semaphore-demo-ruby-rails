@@ -37,4 +37,4 @@ blocks:
           commands:
             - bundle exec bundler-audit --update
             - bundle exec brakeman
-            - bundle exec rubocop
+            - bundle exec rubocop --parallel
