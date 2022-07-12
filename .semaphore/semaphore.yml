@@ -1,13 +1,11 @@
 version: v1.0
 name: Ruby on Rails CI
-
 agent:
   machine:
     type: e1-standard-2
     os_image: ubuntu2004
-
 auto_cancel:
-  queued:
+  running:
     when: true
 fail_fast:
   stop:
@@ -41,12 +39,11 @@ blocks:
   - name: Lint
     task:
       jobs:
-        - name: Security audit dependencies
+        - name: Run quality
           commands:
+            # Security audit dependencies
             - bundle exec bundler-audit --update
-        - name: Security audit application code
-          commands:
+            # Security audit application code
             - bundle exec brakeman
-        - name: Lint Ruby files
-          commands:
+            # Lint Ruby files
             - bundle exec rubocop
