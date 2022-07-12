@@ -21,15 +21,14 @@ global_job_config:
       - sem-service start postgres
       
       - sem-version ruby 2.7.3
-      - bundle config set path 'vendor/bundle'
       - bundle install
       - bundle exec rails db:setup
       - cache store
-    env_vars:
-      - name: DATABASE_URL
-        value: postgresql://postgres@localhost/test
-      - name: RAILS_ENV
-        value: test
+  env_vars:
+    - name: DATABASE_URL
+      value: postgresql://postgres@localhost/test
+    - name: RAILS_ENV
+      value: test
 
 blocks:
   - name: Test
