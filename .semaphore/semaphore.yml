@@ -27,8 +27,8 @@ blocks:
       jobs:
         - name: Run tests
           commands:
-            - bin/rails db:setup
-            - bin/rspec
+            - bundle exec rails db:setup
+            - bundle exec rspec
 
   - name: Lint
     task:
