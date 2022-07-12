@@ -15,18 +15,9 @@ global_job_config:
   prologue:
     commands:
       - checkout
-      - cache restore
       - sem-service start postgres
-      
       - sem-version ruby 2.7.3
       - bundle install
-      - bundle exec rails db:setup
-      - cache store
-  env_vars:
-    - name: DATABASE_URL
-      value: postgresql://postgres@localhost/test
-    - name: RAILS_ENV
-      value: test
 
 blocks:
   - name: Test
@@ -34,6 +25,7 @@ blocks:
       jobs:
         - name: Run tests
           commands:
+            - bundle exec rails db:setup
             - bundle exec rspec
 
   - name: Lint
