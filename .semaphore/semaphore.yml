@@ -15,9 +15,11 @@ global_job_config:
   prologue:
     commands:
       - checkout
+      - cache restore
       - sem-service start postgres
       - sem-version ruby 2.7.3
       - bundle install
+      - cache store
 
 blocks:
   - name: Test
@@ -25,17 +27,14 @@ blocks:
       jobs:
         - name: Run tests
           commands:
-            - bundle exec rails db:setup
-            - bundle exec rspec
+            - bin/rails db:setup
+            - bin/rspec
 
   - name: Lint
     task:
       jobs:
         - name: Run quality
           commands:
-            # Security audit dependencies
             - bundle exec bundler-audit --update
-            # Security audit application code
             - bundle exec brakeman
-            # Lint Ruby files
             - bundle exec rubocop
