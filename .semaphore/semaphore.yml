@@ -4,34 +4,35 @@ agent:
   machine:
     type: e1-standard-2
     os_image: ubuntu2004
+execution_time_limit:
+  minutes: 10
 auto_cancel:
   running:
     when: true
 fail_fast:
   stop:
     when: true
-
 global_job_config:
   prologue:
     commands:
-      - checkout
-      - cache restore
-      - sem-service start postgres
-      - sem-version ruby 2.7.3
-      - bundle install
-      - cache store
-
+    - checkout
+    - cache restore
+    - sem-service start postgres
+    - sem-version ruby 2.7.3
+    - bundle install
+    - cache store
 blocks:
-  - name: Test
-    task:
-      jobs:
-        - name: Run tests
-          commands:
-            - bundle exec rails db:setup
-            - bundle exec rspec
-
-  - name: Lint
-    task:
-      jobs:
-        - name: Run quality
-          commands:
+- name: Test
+  task:
+    jobs:
+    - name: Run tests
+      commands:
+      - bundle exec rails db:setup
+      - bundle exec rspec
+- name: Lint
+  task:
+    jobs:
+    - name: Run quality
+      commands:
+      - bundle exec brakeman
+      - bundle exec rubocop  --parallel
