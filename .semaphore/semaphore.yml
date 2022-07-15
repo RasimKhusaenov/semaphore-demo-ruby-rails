@@ -35,6 +35,3 @@ blocks:
       jobs:
         - name: Run quality
           commands:
-            - bundle exec bundler-audit --update
-            - bundle exec brakeman
-            - bundle exec rubocop --parallel
